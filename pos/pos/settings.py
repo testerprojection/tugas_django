@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'pos_app',
 ]
 
+AUTH_USER_MODEL = 'pos_app.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
