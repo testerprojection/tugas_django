@@ -14,7 +14,9 @@ from rest_framework.permissions import IsAuthenticated,AllowAny
 from .paginators import CustomPagination
 from rest_framework.filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+@method_decorator(csrf_exempt, name='dispatch')
 
 class LayananListAPIView(APIView):
     def get(self, request, *args, **kwargs):    
