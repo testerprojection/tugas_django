@@ -1,3 +1,1 @@
-web: gunicorn latihan_tugas.wsgi --log-file - 
-#or works good with external database
-web: python manage.py migrate && gunicorn project_name.wsgi
+web: bash -c "python manage.py migrate && gunicorn pos.wsgi"
