@@ -1,3 +1,5 @@
+import os
+
 """
 Django settings for pos project.
 
@@ -120,9 +122,7 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
-STATIC_ROOT = [
-    BASE_DIR / 'static',
-]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # or just a string path
 # STATIC_ROOT = os.path.jjoin(BASE_DIR, 'static')
 
 MEDIA_URL = 'media/'
