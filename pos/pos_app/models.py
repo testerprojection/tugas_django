@@ -153,10 +153,10 @@ class Pembayaran(models.Model):
         ("Lunas", "Lunas"),
         ("Belum Lunas", "Belum Lunas"),
     )
-    Layanan = models.ForeignKey(Layanan, related_name="pembayaran", on_delete=models.CASCADE)
+    layanan = models.ForeignKey(Layanan, related_name="pembayaran", on_delete=models.CASCADE)
     total_bayar = models.FloatField(default=0.00)
     status = models.CharField(max_length=15, choices=status_choices, default="Belum Lunas")
-    Jenis_pembayaran = models.ForeignKey(JenisPembayaran, related_name="pembayaran", on_delete=models.CASCADE)
+    jenis_pembayaran = models.ForeignKey(JenisPembayaran, related_name="pembayaran", on_delete=models.CASCADE)
     user_create = models.ForeignKey(User, related_name="user_create_pembayaran", blank=True, null=True, on_delete=models.SET_NULL)
     user_update = models.ForeignKey(User, related_name="user_update_pembayaran", blank=True, null=True, on_delete=models.SET_NULL)
     create_on = models.DateTimeField(auto_now_add=True)
