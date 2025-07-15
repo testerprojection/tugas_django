@@ -353,6 +353,17 @@ class PembayaranListAPIView(APIView):
 class PembayaranListCreateAPIView(generics.ListCreateAPIView):
     queryset = Pembayaran.objects.all()
     serializer_class = PembayaranSerializer
+
+    def post(self, request, *args, **kwargs):
+        print("DEBUG DATA POST:", request.data)  # 👈 cetak data mentah
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print("DEBUG ERROR:", serializer.errors)  # 👈 CETAK ERRORNYA DI SINI
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     
 class PembayaranRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pembayaran.objects.all()
