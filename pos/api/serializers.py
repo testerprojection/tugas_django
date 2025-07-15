@@ -75,8 +75,10 @@ class JenisPembayaranSerializer(serializers.ModelSerializer):
         fields=('id','status','user_create','user_update','create_on','last_modified')
         extra_kwargs={
             'status':{'required':True},
-            'user_create':{'required':False},
-            'user_update':{'required':False},
+            'user_create': {'required': False},
+            'user_update': {'required': False},
+            'create_on': {'required': False},
+            'last_modified': {'required': False},
         }
 
 class  LayananSerializer(serializers.ModelSerializer):
@@ -86,14 +88,17 @@ class  LayananSerializer(serializers.ModelSerializer):
         
         
 class PembayaranSerializer(serializers.ModelSerializer):
+    create_on = serializers.DateTimeField(format='%Y-%m-%dT%H:%M:%S.%fZ', required=False)
+    last_modified = serializers.DateTimeField(format='%Y-%m-%dT%H:%M:%S.%fZ', required=False)
+
     class Meta:
         model = Pembayaran
         fields = (
             'id',
-            'layanan',  # huruf kecil
+            'layanan',
             'total_bayar',
             'status',
-            'jenis_pembayaran',  # huruf kecil
+            'jenis_pembayaran',
             'user_create',
             'user_update',
             'create_on',
