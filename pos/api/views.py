@@ -363,6 +363,15 @@ class PembayaranListCreateAPIView(generics.ListCreateAPIView):
         else:
             print("DEBUG ERROR:", serializer.errors)  # 👈 CETAK ERRORNYA DI SINI
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({
+            "status": 200,
+            "message": "Data ditemukan.",
+            "data": serializer.data
+        })
 
     
 class PembayaranRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
