@@ -154,13 +154,13 @@ class Pembayaran(models.Model):
         ("Belum Lunas", "Belum Lunas"),
     )
     layanan = models.ForeignKey(Layanan, related_name="pembayaran", on_delete=models.CASCADE)
-    total_bayar = models.FloatField(default=0.00)
+    total_bayar = models.FloatField(default=0.0)
     status = models.CharField(max_length=15, choices=status_choices, default="Belum Lunas")
     jenis_pembayaran = models.ForeignKey(JenisPembayaran, related_name="pembayaran", on_delete=models.CASCADE)
     user_create = models.ForeignKey(User, related_name="user_create_pembayaran", blank=True, null=True, on_delete=models.SET_NULL)
     user_update = models.ForeignKey(User, related_name="user_update_pembayaran", blank=True, null=True, on_delete=models.SET_NULL)
     create_on = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateField(auto_now=True)
+    last_modified = models.DateTimeField(auto_now=True)  # Ganti ke DateTimeField
 
     def __str__(self):
         return self.status
