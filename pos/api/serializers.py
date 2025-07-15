@@ -88,7 +88,17 @@ class  LayananSerializer(serializers.ModelSerializer):
 class PembayaranSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pembayaran
-        fields = ('id', 'Layanan', 'total_bayar', 'status', 'Jenis_pembayaran', 'user_create', 'user_update', 'create_on', 'last_modified')
+        fields = (
+            'id',
+            'layanan',  # huruf kecil
+            'total_bayar',
+            'status',
+            'jenis_pembayaran',  # huruf kecil
+            'user_create',
+            'user_update',
+            'create_on',
+            'last_modified'
+        )
         extra_kwargs = {
             'user_create': {'required': False},
             'user_update': {'required': False},
