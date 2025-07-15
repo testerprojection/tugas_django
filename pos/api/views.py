@@ -372,6 +372,26 @@ class PembayaranListCreateAPIView(generics.ListCreateAPIView):
             "message": "Data ditemukan.",
             "data": serializer.data
         })
+        
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "status": 200,
+                "message": "Data berhasil diperbarui.",
+                "data": serializer.data
+            })
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response({
+            "status": 200,
+            "message": "Data berhasil dihapus."
+        })
 
     
 class PembayaranRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -462,10 +482,7 @@ class PembayaranGetUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
             'data': serializer.data
         }
         return Response(response, status=status.HTTP_200_OK)
-    
-class PembayaranListCreateAPIView(ListCreateAPIView):
-    queryset = Pembayaran.objects.all()
-    serializer_class = PembayaranSerializer
+
     
 class PembayaranDetailAPIView(APIView):
     def get(self, request, pk, *args, **kwargs):
