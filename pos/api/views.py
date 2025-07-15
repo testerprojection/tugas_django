@@ -354,17 +354,7 @@ class PembayaranListCreateAPIView(generics.ListCreateAPIView):
     queryset = Pembayaran.objects.all()
     serializer_class = PembayaranSerializer
 
-    def post(self, request, *args, **kwargs):
-        print("DEBUG DATA POST:", request.data)  # 👈 cetak data mentah
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            print("DEBUG ERROR:", serializer.errors)  # 👈 CETAK ERRORNYA DI SINI
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-    def list(self, request, *args, **kwargs):
+    def list(self, request, *args, **kwargs):  # ✅ Tidak ada spasi ekstra
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
         return Response({
@@ -372,28 +362,7 @@ class PembayaranListCreateAPIView(generics.ListCreateAPIView):
             "message": "Data ditemukan.",
             "data": serializer.data
         })
-        
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({
-                "status": 200,
-                "message": "Data berhasil diperbarui.",
-                "data": serializer.data
-            })
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.delete()
-        return Response({
-            "status": 200,
-            "message": "Data berhasil dihapus."
-        })
 
-    
 class PembayaranRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pembayaran.objects.all()
     serializer_class = PembayaranSerializer
@@ -482,6 +451,7 @@ class PembayaranGetUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
             'data': serializer.data
         }
         return Response(response, status=status.HTTP_200_OK)
+    
 
     
 class PembayaranDetailAPIView(APIView):
